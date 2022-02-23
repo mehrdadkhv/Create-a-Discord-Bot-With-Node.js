@@ -9,6 +9,11 @@ client.on("ready", () => {
   console.log(`${client.user.tag} has logged in`);
 });
 
-clinet.on("message", (message) => {});
+client.on("messageCreate", (message) => {
+  console.log(`[${message.author.tag}] : ${message.content}`);
+  if (message.content === "hello") {
+    message.reply("hello mehrdad");
+  }
+});
 
 client.login(process.env.DISCORDJS_BOT_TOKEN);
