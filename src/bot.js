@@ -5,14 +5,24 @@ const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 
+const PREFIX = "$";
+
 client.on("ready", () => {
   console.log(`${client.user.tag} has logged in`);
 });
 
 client.on("messageCreate", (message) => {
-  console.log(`[${message.author.tag}] : ${message.content}`);
-  if (message.content === "hello") {
-    message.reply("hello mehrdad");
+  if (message.author.bot) return;
+
+  if (message.content.startsWith(PREFIX)) {
+    const [CMD_NAME, ...args] = message.content
+      .trim()
+      .substring(PREFIX.length)
+      .split(/\s+/);
+
+    if (CMD_NAME === "kick") {
+      message.channel.send("kicked the user");
+    }
   }
 });
 
